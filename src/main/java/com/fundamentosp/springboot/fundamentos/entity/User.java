@@ -1,5 +1,6 @@
 package com.fundamentosp.springboot.fundamentos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
+    @JsonIgnore
     private List<Post> posts = new ArrayList<>();
 
     public User() {
@@ -33,7 +35,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public Long getId() {
+	public User(Long id) {
+        this.id = id;
+	}
+
+	public Long getId() {
         return id;
     }
 
