@@ -2,6 +2,7 @@ package com.fundamentosp.springboot.fundamentos.configuration;
 
 import com.fundamentosp.springboot.fundamentos.caseuse.GetUser;
 import com.fundamentosp.springboot.fundamentos.caseuse.GetUserImplement;
+import com.fundamentosp.springboot.fundamentos.caseuse.GetUserPageable;
 import com.fundamentosp.springboot.fundamentos.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

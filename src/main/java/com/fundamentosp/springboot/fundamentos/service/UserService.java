@@ -4,6 +4,7 @@ import com.fundamentosp.springboot.fundamentos.entity.User;
 import com.fundamentosp.springboot.fundamentos.repository.UserRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -47,5 +48,9 @@ public class UserService {
 							return userRepository.save(user);
 						}
 				).get();
+	}
+
+	public List<User> getUserPageable(int page, int size) {
+		return userRepository.findAll(PageRequest.of(page, size)).getContent();
 	}
 }

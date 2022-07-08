@@ -1,12 +1,8 @@
 package com.fundamentosp.springboot.fundamentos.controller;
 
-import com.fundamentosp.springboot.fundamentos.caseuse.CreateUser;
-import com.fundamentosp.springboot.fundamentos.caseuse.DeleteUser;
-import com.fundamentosp.springboot.fundamentos.caseuse.GetUser;
-import com.fundamentosp.springboot.fundamentos.caseuse.UpdateUser;
+import com.fundamentosp.springboot.fundamentos.caseuse.*;
 import com.fundamentosp.springboot.fundamentos.entity.User;
 import com.fundamentosp.springboot.fundamentos.repository.UserRepository;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +17,17 @@ public class UserRestController {
 	private DeleteUser deleteUser;
 	private UpdateUser updateUser;
 	private UserRepository userRepository;
+	private GetUserPageable getUserPageable;
 
 	public UserRestController(GetUser getUser, CreateUser createUser, DeleteUser deleteUser,
-							  UpdateUser updateUser, UserRepository userRepository) {
+							  UpdateUser updateUser, UserRepository userRepository,
+							  GetUserPageable getUserPageable) {
 		this.getUser = getUser;
 		this.createUser = createUser;
 		this.deleteUser = deleteUser;
 		this.updateUser = updateUser;
 		this.userRepository = userRepository;
+		this.getUserPageable = getUserPageable;
 	}
 	@GetMapping("/")
 	List<User> get() {
@@ -55,6 +54,6 @@ public class UserRestController {
 
 	@GetMapping("/pageable")
 	List<User> getUserPageable(@RequestParam int page, @RequestParam int size) {
-		return userRepository.findAll(PageRequest.of(page, size)).getContent();
+		return getUserPageable.getUserPageable(page, size);
 	}
 }
